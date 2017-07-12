@@ -1,3 +1,39 @@
 body {
   font-family: sans-serif;
+  color: #666666;
+}
+
+.session-row {
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  padding-top: 20vh;
+}
+.session-row .column:first-child {
+  border-right: 1px solid grey;
+}
+.session-row .column {
+  padding: 20px;
+}
+
+
+form label {
+  display: block;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 0.5em;
+}
+
+form input[type='submit']{
+  width: inherit;
+}
+
+form .error {
+  color: red;
+}
+
+form .error input, form .error textarea{
+  border: 1px solid red;
 }

@@ -8,6 +8,20 @@
   </head>
   <body>
 
+    <header>
+      {{#user}}
+        <span>Hi {{user.username}}.</span>
+        <div class="">
+          <form class="" action="/logout" method="post">
+            <input type="submit" name="" value="Sign Out">
+          </form>
+        </div>
+      {{/user}}
+      {{^user}}
+        <span>Welcome! <a href="/login">Sign in!</a></span>
+      {{/user}}
+    </header>
+
     {{{yield}}}
 
   </body>
