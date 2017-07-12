@@ -1,1 +1,10 @@
 <h1>Hi {{user.username}}!!!</h1>
+
+{{#links}}
+  <div class="link">
+    <h3>{{title}} <small>- {{username}}</small></h3>
+    <blockquote cite="http://">
+      {{body}}
+    </blockquote>
+  </div>
+{{/links}}

@@ -37,3 +37,7 @@ form .error {
 form .error input, form .error textarea{
   border: 1px solid red;
 }
+
+.link {
+  border-bottom: 1px solid grey;
+}

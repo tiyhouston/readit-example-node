@@ -6,6 +6,7 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const authentication = require("./middleware/authentication")
 app.engine('mustache', mustache())
 app.set('view engine', 'mustache')
 app.use(express.static('public'));
@@ -32,26 +33,14 @@ app.use(session(sess))
 const homepageRoute = require("./routes/homepage")
 const sessionRoutes = require("./routes/session")
 const registrationRoutes = require("./routes/registration")
+const linksRoutes = require("./routes/links")
+
 const User = require("./models/User")
 app.use(sessionRoutes)
 app.use(registrationRoutes)
-app.use(function(req,res,next){
-  console.log("sup")
-  if (req.session.userId){
-    // fetch the userId
-    // put it on req.user
-
-    User.findOne({_id: req.session.userId})
-    .then(function(user){
-      req.user = user;
-      next();
-    })
-
-  } else {
-    res.redirect("/login")
-  }
-})
+app.use(authentication)
 app.use(homepageRoute);
+app.use(linksRoutes);
 
 app.listen(3000, function(){
   console.log("We are listening")

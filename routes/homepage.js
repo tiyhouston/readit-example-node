@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const Link = require("../models/Link");
 
 router.get("/", function(req,res){
-
-  res.render("index", {
-    user: req.user
-  });
+  Link.find()
+  .then(function(links){
+    res.render("index", {
+      user: req.user,
+      links: links
+    });
+  })
 })
 
 module.exports = router;
