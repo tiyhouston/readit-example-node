@@ -1,6 +1,16 @@
 body {
   font-family: sans-serif;
   color: #666666;
+  background: #FAF3DD;
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  background: #FFA69E;
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
 }
 
 .session-row {
@@ -40,4 +50,30 @@ form .error input, form .error textarea{
 
 .link {
   border-bottom: 1px solid grey;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.link .details {
+  padding: 1em;
+}
+
+.link .votes {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-basis: 5%;
+  background: #5E6472;
+  color: white;
+  padding: 1em 0.5em;
+}
+.link h3 {
+  margin: 0;
+}
+
+.link .votes form button {
+  border: 0;
+  background: none;
+  color: white;
+  font-size: 1em;
 }

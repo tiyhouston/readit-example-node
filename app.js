@@ -34,13 +34,14 @@ const homepageRoute = require("./routes/homepage")
 const sessionRoutes = require("./routes/session")
 const registrationRoutes = require("./routes/registration")
 const linksRoutes = require("./routes/links")
+const votesRoutes = require("./routes/votes")
 
-const User = require("./models/User")
 app.use(sessionRoutes)
 app.use(registrationRoutes)
 app.use(authentication)
 app.use(homepageRoute);
 app.use(linksRoutes);
+app.use(votesRoutes);
 
 app.listen(3000, function(){
   console.log("We are listening")

@@ -2,9 +2,25 @@
 
 {{#links}}
   <div class="link">
-    <h3>{{title}} <small>- {{username}}</small></h3>
-    <blockquote cite="http://">
-      {{body}}
-    </blockquote>
+
+    <div class="votes">
+      <form class="" action="/links/{{_id}}/upvote" method="post">
+        <button type="submit" name="button"><i class="fa fa-arrow-up"></i></button>
+      </form>
+
+      <span>{{totalLikes}}</span>
+
+      <form class="" action="/links/{{_id}}/downvote" method="post">
+        <button type="submit" name="button"><i class="fa fa-arrow-down"></i></button>
+      </form>
+      
+    </div>
+    <div class="details">
+      <h3>{{title}} <small>- {{username}}</small></h3>
+      <blockquote cite="http://">
+        {{body}}
+      </blockquote>
+    </div>
+
   </div>
 {{/links}}
