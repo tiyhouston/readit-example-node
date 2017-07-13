@@ -13,6 +13,11 @@ router.get("/", function(req,res){
         // OMG YAY IT WORKS
         links[i].createdByCurrentUser = true;
       }
+
+      links[i].excerpt = links[i].body.slice(0,140)
+      if (links[i].body.length > 140){
+        links[i].excerpt += '...'
+      }
     }
 
     res.render("index", {
