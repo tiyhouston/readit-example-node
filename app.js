@@ -14,7 +14,9 @@ app.set('layout', 'layout');
 app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({extended: false}))
 mongoose.Promise = require("bluebird");
-mongoose.connect("mongodb://0.0.0.0:27017/readit")
+
+const mongoURL = process.env.MONGODB_URI || "mongodb://0.0.0.0:27017/readit"
+mongoose.connect(mongoURL)
 var sess = {
   secret: 'ASKDFJAISDFYAKNFQ#$%(@*#@23$)',
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
@@ -43,6 +45,7 @@ app.use(homepageRoute);
 app.use(linksRoutes);
 app.use(votesRoutes);
 
-app.listen(3000, function(){
-  console.log("We are listening")
+const port = process.env.PORT || 3000;
+app.listen(port, function(){
+  console.log("We are listening on port " + port)
 })
