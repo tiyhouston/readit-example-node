@@ -16,7 +16,13 @@
 
     </div>
     <div class="details">
-      <h3>{{title}} <small>- {{username}}</small></h3>
+      <h3>
+          {{title}}
+          <small> - {{username}}</small>
+          {{#createdByCurrentUser}}
+          -- <a href="/links/{{_id}}/edit">Edit</a>
+          {{/createdByCurrentUser}}
+      </h3>
       <blockquote cite="http://">
         {{body}}
       </blockquote>

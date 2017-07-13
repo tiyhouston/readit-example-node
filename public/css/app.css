@@ -77,3 +77,13 @@ form .error input, form .error textarea{
   color: white;
   font-size: 1em;
 }
+
+.delete-form{
+  text-align: right;
+}
+
+.delete-form input[type='submit']{
+  background: red;
+  color: white;
+  border: 0;
+}

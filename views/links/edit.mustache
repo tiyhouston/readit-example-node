@@ -1,0 +1,9 @@
+<h1>Edit Link: {{link.title}}</h1>
+
+<form class="delete-form" action="/links/{{link._id}}/delete" method="post">
+  <input type="submit" name="" value="DELETE">
+</form>
+
+<form class="" action="/links/{{link._id}}" method="post">
+  {{>links/_form}}
+</form>
