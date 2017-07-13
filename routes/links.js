@@ -2,26 +2,45 @@ const express = require("express");
 const router = express.Router()
 const Link = require("../models/Link")
 
-router.get("/links/new", function(req,res){
-  res.render("links/new")
-})
-
-router.get("/links/:id/edit", function(req, res){
+// middleware to fetch a link by id, ensure it's for
+//  the current user (at req.user)
+function fetchLink(req,res,next){
   Link.findOne({_id: req.params.id, username: req.user.username})
   .then(function(link){
     if (link){
-      res.render("links/edit", {
-        user: req.user,
-        link: link
-      })
+      req.link = link;
+      next();
     } else {
       res.status(401).send("UNAUTHORIZED")
     }
   })
+}
+
+
+router.get("/links/new", function(req,res){
+  res.render("links/new")
 })
 
-router.post("/links/:id/delete", function(req,res){
-  Link.deleteOne({_id: req.params.id, username: req.user.username})
+router.get("/links/:id/edit", fetchLink, function(req, res){
+  res.render("links/edit", {
+    user: req.user,
+    link: req.link
+  })
+})
+
+// without middleware:
+// router.post("/links/:id/delete", function(req,res){
+//   Link.deleteOne({_id: req.params.id, username: req.user.username})
+//   .then(function(){
+//     res.redirect("/")
+//   })
+//   .catch(function(){
+//     res.status(422).send("NOPE")
+//   })
+// })
+
+router.post("/links/:id/delete", fetchLink, function(req,res){
+  req.link.remove()
   .then(function(){
     res.redirect("/")
   })
@@ -30,26 +49,19 @@ router.post("/links/:id/delete", function(req,res){
   })
 })
 
-router.post("/links/:id", function(req,res){
-  Link.findOne({_id: req.params.id, username: req.user.username})
+router.post("/links/:id", fetchLink, function(req,res){
+  const link = req.link;
+  link.title = req.body.title
+  link.body = req.body.body
+  link.save()
   .then(function(link){
-
-    if(!link){
-      res.status(401).send("UNAUTHORIZED")
-    }
-
-    link.title = req.body.title
-    link.body = req.body.body
-    link.save()
-    .then(function(link){
-      res.redirect("/")
-    })
-    .catch(function(error){
-      res.render("links/edit", {
-        user: req.user,
-        link: link,
-        error: error
-      })
+    res.redirect("/")
+  })
+  .catch(function(error){
+    res.render("links/edit", {
+      user: req.user,
+      link: link,
+      error: error
     })
   })
 })
